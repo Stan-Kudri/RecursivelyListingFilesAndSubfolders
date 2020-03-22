@@ -12,25 +12,13 @@ namespace Working_With_File_Paths
     {
         public string Name { get; }
         public string FullPath { get; }
-        public List<IFileSystemEntry> Enteries { get; }
+        public IReadOnlyList<IFileSystemEntry> Enteries { get; } 
 
-        public DirectoryEntry(string listingNames)
+        public DirectoryEntry(string name, string fullName, IReadOnlyList<IFileSystemEntry> entries)
         {
-            var dirInfo = new DirectoryInfo(listingNames);
-            Name = dirInfo.Name;
-            FullPath = dirInfo.FullName;
-
-            Enteries = new List<IFileSystemEntry>();
-
-            foreach(var fileInfo in dirInfo.GetFiles())
-            {
-                Enteries.Add(new FileEntry(fileInfo.FullName));
-            }
-
-            foreach(var directoryInfo in dirInfo.GetDirectories())
-            {    
-                Enteries.Add(new DirectoryEntry(directoryInfo.FullName));
-            }
+            Name = name;
+            FullPath = fullName;
+            Enteries = entries;            
         }
     }
 }

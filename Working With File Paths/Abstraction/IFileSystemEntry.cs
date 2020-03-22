@@ -8,7 +8,7 @@ namespace Working_With_File_Paths.Abstraction
 {
     interface IFileSystemEntry
     {
-        List <IFileSystemEntry> Enteries { get; }
+        IReadOnlyList <IFileSystemEntry> Enteries { get; }
         string Name { get; }
         string FullPath { get; }
     }

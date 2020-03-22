@@ -10,11 +10,14 @@ namespace Working_With_File_Paths
 {
     class Program
     {
+        //Для данной папки рекурсивно выдать список её файлов и подпапок.
+
         static void Main(string[] args)
         {
-            string path = $@"X:\Программы\КОМПАС-3D 16.1.3";
-            var fileTask = new FilePaths();
-            fileTask.Task(path);
+            string path = $@"X:\Программы\Microsoft Office 2013";
+            var directoryPath = new DirectoryPath();
+            directoryPath.DirectoryHandler(path);
+
 
             Console.ReadLine();
         }
