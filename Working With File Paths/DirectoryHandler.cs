@@ -10,16 +10,10 @@ namespace Working_With_File_Paths
 {
     class DirectoryHandle
     {
-        public DirectoryEntry RecursiveFileEnumeration(string dirName)
+        public DirectoryEntry CreateDirectoryEntry(DirectoryInfo dirInfo)
         {
-            if (Directory.Exists(dirName))
-            {
-                var dirInfo = new DirectoryInfo(dirName);
-                var fileAndDirectories = new DirectoryEntry(dirInfo.Name, dirInfo.FullName, FolderContents(dirInfo.Name, dirInfo.FullName));
-                return fileAndDirectories;
-            }
-            else
-                throw new ArgumentException("Ожидался путь к папке");
+            var fileAndDirectories = CreatingSubfolderEntry(dirInfo);
+            return fileAndDirectories;            
         }
 
         public void Print(DirectoryEntry fileAndDirectories)
@@ -39,11 +33,9 @@ namespace Working_With_File_Paths
 
             foreach (var directoryInfo in dirInfo.GetDirectories())
             {
-                string directoryName = directoryInfo.Name;
-                string directoryFullName = directoryInfo.FullName;
-                fileSystemEntries.Add(new DirectoryEntry(directoryName, directoryFullName, FolderContents(directoryName, directoryFullName)));
+                fileSystemEntries.Add(CreatingSubfolderEntry(directoryInfo));
             }
-
+            
             return fileSystemEntries;
         }
 
@@ -55,6 +47,11 @@ namespace Working_With_File_Paths
             {
                 PrintingFilesAndDirectories(x, prefix + "\t");
             }
-        }        
+        }
+        
+        private static DirectoryEntry CreatingSubfolderEntry(DirectoryInfo dirInfo)
+        {
+            return new DirectoryEntry(dirInfo.Name, dirInfo.FullName, FolderContents(dirInfo.Name, dirInfo.FullName));
+        }
     }
 }
