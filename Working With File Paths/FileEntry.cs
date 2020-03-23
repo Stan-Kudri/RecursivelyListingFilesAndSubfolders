@@ -13,7 +13,7 @@ namespace Working_With_File_Paths
     {
         public string Name { get; }
         public string FullPath { get; }
-        public IReadOnlyList<IFileSystemEntry> Enteries { get; } = new List<IFileSystemEntry>();
+        public IReadOnlyList<IFileSystemEntry> Enteries => Array.Empty<IFileSystemEntry>();
 
         public FileEntry(string name, string fullName)
         {

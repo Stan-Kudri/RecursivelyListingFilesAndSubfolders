@@ -15,8 +15,9 @@ namespace Working_With_File_Paths
         static void Main(string[] args)
         {
             string path = $@"X:\Программы\Microsoft Office 2013";
-            var directoryPath = new DirectoryPath();
-            directoryPath.DirectoryHandler(path);
+            var directoryHandle = new DirectoryHandle();
+            var FilesAndSubfolders = directoryHandle.RecursiveFileEnumeration(path);
+            directoryHandle.Print(FilesAndSubfolders);
 
 
             Console.ReadLine();

@@ -18,7 +18,7 @@ namespace Working_With_File_Paths
         {
             Name = name;
             FullPath = fullName;
-            Enteries = entries;            
+            Enteries = entries ?? Array.Empty<IFileSystemEntry>();            
         }
     }
 }

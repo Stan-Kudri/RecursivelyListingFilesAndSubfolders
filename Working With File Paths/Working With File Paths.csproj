@@ -46,7 +46,7 @@
     <Compile Include="Abstraction\IFileSystemEntry.cs" />
     <Compile Include="DirectoryEntry.cs" />
     <Compile Include="FileEntry.cs" />
-    <Compile Include="DirectoryPaths.cs" />
+    <Compile Include="DirectoryHandler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

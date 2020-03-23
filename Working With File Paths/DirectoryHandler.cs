@@ -8,16 +8,23 @@ using Working_With_File_Paths.Abstraction;
 
 namespace Working_With_File_Paths
 {
-    class DirectoryPath
+    class DirectoryHandle
     {
-        private static void RecursiveFileEnumeration(string dirName)
+        public DirectoryEntry RecursiveFileEnumeration(string dirName)
         {
             if (Directory.Exists(dirName))
             {
                 var dirInfo = new DirectoryInfo(dirName);
-                var fileAndDirectories = new DirectoryEntry(dirInfo.Name, dirInfo.FullName, FolderContents(dirInfo.Name,dirInfo.FullName));
-                CreateList(fileAndDirectories,"");
+                var fileAndDirectories = new DirectoryEntry(dirInfo.Name, dirInfo.FullName, FolderContents(dirInfo.Name, dirInfo.FullName));
+                return fileAndDirectories;
             }
+            else
+                throw new ArgumentException("Ожидался путь к папке");
+        }
+
+        public void Print(DirectoryEntry fileAndDirectories)
+        {
+            PrintingFilesAndDirectories(fileAndDirectories, "");
         }
 
         private static IReadOnlyList<IFileSystemEntry> FolderContents(string name, string fullName)
@@ -32,25 +39,22 @@ namespace Working_With_File_Paths
 
             foreach (var directoryInfo in dirInfo.GetDirectories())
             {
-                fileSystemEntries.Add(new DirectoryEntry(directoryInfo.Name, directoryInfo.FullName, FolderContents(directoryInfo.Name, directoryInfo.FullName) ));
+                string directoryName = directoryInfo.Name;
+                string directoryFullName = directoryInfo.FullName;
+                fileSystemEntries.Add(new DirectoryEntry(directoryName, directoryFullName, FolderContents(directoryName, directoryFullName)));
             }
 
             return fileSystemEntries;
         }
 
-        private static void CreateList(IFileSystemEntry fileSystemEntry, string prefix)
+        private static void PrintingFilesAndDirectories(IFileSystemEntry fileSystemEntry, string prefix)
         {
             Console.WriteLine(prefix + fileSystemEntry.Name);
 
             foreach (var x in fileSystemEntry.Enteries)
             {
-                CreateList(x, prefix + "\t");
+                PrintingFilesAndDirectories(x, prefix + "\t");
             }
         }        
-
-        public void DirectoryHandler(string path)
-        {
-            RecursiveFileEnumeration(path);
-        }
     }
 }
